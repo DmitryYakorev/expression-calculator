@@ -15,12 +15,12 @@ function expressionCalculator(expr) {
     let New_expr = "";
     let importance = { "*": 2, "/": 1, "+": 0, "-": 0 };
     let a = 0;
-  for (let i = 0; i < expr.length; i++) {
+  /*for (let i = 0; i < expr.length; i++) {
     if (expr[i] !== " ") {
     
       New_expr  += expr[i];
     }
-  }
+  }*/
 /*for (let index = 0; index < New_expr.length; index++) {
     const element =New_expr[index];
     
@@ -51,9 +51,13 @@ function expressionCalculator(expr) {
         w++;
     }
 };*/
+expr.trim;
 ArrayData = expr.split(" ");
-ArrayData.pop();
-ArrayData.shift();
+ArrayData1 = expr.split("");
+if (!ArrayData1.includes(' ')) ArrayData = ArrayData1;
+//console.log(ArrayData);
+//ArrayData.pop();
+//ArrayData.shift();
 //console.log("init ",expr,ArrayData);
 function forindex(params) {
     return (params === '(');
@@ -100,6 +104,11 @@ data.splice(index,1);
 index -=2;
     };
     if (element === '/') {
+      
+        if (Number(data[index+1]) === 0) throw "TypeError: Division by zero.";
+          
+  
+      
       s=Number(data[index-1])/Number(data[index+1]);
   //console.log("element",element,"s=",s);
 result=s;
@@ -219,6 +228,7 @@ data.splice(index,1);
   //  console.log('s=',new_s2);
   return result
 }
+
 
 module.exports = {
     expressionCalculator
