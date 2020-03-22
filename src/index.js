@@ -13,20 +13,23 @@ function expressionCalculator(expr) {
     let Array = [];
     let result = 0;
     let New_expr = "";
+    let importance = { "*": 2, "/": 1, "+": 0, "-": 0 };
+    let a = 0;
   for (let i = 0; i < expr.length; i++) {
     if (expr[i] !== " ") {
     
       New_expr  += expr[i];
     }
   }
-for (let index = 0; index < New_expr.length; index++) {
+/*for (let index = 0; index < New_expr.length; index++) {
     const element =New_expr[index];
     
 
     if ((element === ArrayOfOperators[0] )||(element === ArrayOfOperators[1])||(element === ArrayOfOperators[2])||(element === ArrayOfOperators[3])||(element === ArrayOfOperators[4])||(element === ArrayOfOperators[5])) {
        // if (index<3)console.log(w);
+       if ( w !== 0) ArrayData.pop();
         ArrayData.push(New_expr.slice((index-w),index));
-
+     
 
         ArrayData.push(element);
         if (!isNaN(New_expr[index+3]) ) {
@@ -41,12 +44,17 @@ for (let index = 0; index < New_expr.length; index++) {
        //     console.log('+');
       //  };
 
-       // console.log('array = ',ArrayData);
+        if ( a % 10 === 0) {console.log("init ",expr,ArrayData);
+        a++;}
         w=0;
     } else {
         w++;
     }
-};
+};*/
+ArrayData = expr.split(" ");
+ArrayData.pop();
+ArrayData.shift();
+//console.log("init ",expr,ArrayData);
 function forindex(params) {
     return (params === '(');
 }
@@ -63,59 +71,140 @@ for (let index = 0; index < ArrayData.length; index++) {
         break;
         }
 }
-if (s1 === 0) {Array.push(ArrayData.slice(0));
-console.log('!',Array);
+/*if (s1 === 0) {Array.push(ArrayData.slice(0));
+//console.log('!',Array);
  } else {
    Array.push(ArrayData.slice(s1+1,s2));
-}
+}*/
 //let data=[...Array];
 //Array.push(ArrayData.slice(s1=1,s2));
+Array = ArrayData;
 let data=[].concat.apply([],Array);
-
+//console.log("data=",data);
 //console.log('s1,2,array=',s1,s2,data);
+while (data.includes('*') || data.includes('/')){
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index];
+    if (element === '*') {
+      s=Number(data[index-1])*Number(data[index+1]);
+  //console.log("element",element,"s=",s);
+result=s;
+
+data[index-1] = s;
+
+
+data.splice(index,1);
+
+data.splice(index,1);
+//console.log(data);
+index -=2;
+    };
+    if (element === '/') {
+      s=Number(data[index-1])/Number(data[index+1]);
+  //console.log("element",element,"s=",s);
+result=s;
+
+data[index-1] = s;
+
+
+data.splice(index,1);
+
+data.splice(index,1);
+index -=2;
+    };
+  };
+};
+while (data.includes('+') || data.includes('-')){
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index];
+    if (element === '+') {
+      s=Number(data[index-1])+Number(data[index+1]);
+  //console.log("element",element,"s=",s);
+result=s;
+
+data[index-1] = s;
+
+
+data.splice(index,1);
+
+data.splice(index,1);
+//console.log(data);
+index -=2;
+    };
+    if (element === '-') {
+      s=Number(data[index-1])-Number(data[index+1]);
+//  console.log("element",element,"s=",s);
+result=s;
+
+data[index-1] = s;
+
+
+data.splice(index,1);
+
+data.splice(index,1);
+index -=2;
+    };
+  };
+};
+/*
+
 for (let index = 0; index < data.length; index++) {
     const element = data[index];
-    switch (element) {
-        case '*':
-
-    s=Number(data[index-1])*Number(data[index+1]);
+    if (element === '*') {
+      s=Number(data[index-1])*Number(data[index+1]);
  // console.log('s=',s);
 result=s;
-break;
-        case '/':
+data[index-1] = s;
+//delete data[index];
+data.splice(index,1);
+//delete data[index + 1];
+data.splice(index,1);
+    };
+    if (element === '/') {
+      if (Number(data[index+1]) === 0){
+        throw "TypeError: Division by zero.";
+        ;
+        break;
 
-
-            if (Number(data[index+1]) === 0){
-                throw "TypeError: Division by zero.";
-                ;
-                break;
-
-            }
-            s=Number(data[index-1])/Number(data[index+1]);
-    //  console.log('s=',s);
-    result=s;
-    break;
-    case '+':
-
-    s=Number(data[index-1])+Number(data[index+1]);
-  //console.log('s=',s);
+    };
+      s=Number(data[index-1])/Number(data[index+1]);
+  console.log("s=",s);
 result=s;
-    break;
-    case '-':
-
+data[index-1] = s;
+//delete data[index];
+data.splice(index,1);
+//delete data[index + 1];
+data.splice(index,1);
+    };
+    if (element === '-') {
+      s=Number(data[index-1])-Number(data[index+1]);
+ // console.log('s=',s);
+result=s;
+data[index-1] = s;
+//delete data[index];
+data.splice(index,1);
+//delete data[index + 1];
+data.splice(index,1);
+    };
+    if (element === '+') {
+      s=Number(data[index-1])+Number(data[index+1]);
+ // console.log('s=',s);
+result=s;
+data[index-1] = s;
+//delete data[index];
+data.splice(index,1);
+//delete data[index + 1];
+data.splice(index,1);
+    };
     
-s=Number(data[index-1])-Number(data[index+1]);
-//  console.log('s=',s);
-result=s;
-break;
         
     
 
 
-}
+}*/
 
+//console.log(" new ",data," old ",expr);
 
-}
  //   for (let index = 0; index < expr.length; index++) {
    //     const element = expr[index];
 
